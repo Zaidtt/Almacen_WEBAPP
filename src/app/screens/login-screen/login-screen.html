@@ -1,0 +1,36 @@
+<div class="login-container">
+  <div class="login-bg">
+    <div class="login-welcome">
+      <h1>¡BIENVENIDO!</h1>
+      <h3>¡Gestiona tu inventario de licor con facilidad y estilo!</h3>
+    </div>
+  </div>
+
+  <div class="login-side">
+    <div class="login-header">
+      <h1>Aureo</h1>
+      <img src="/assets/images/icon_reg.png" alt="Logo">
+    </div>
+
+    <mat-card class="login-card">
+      <h2>Login</h2>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Correo</mat-label>
+        <input matInput [(ngModel)]="email" type="email" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+  <mat-label>Contraseña</mat-label>
+  <input matInput [type]="type" [(ngModel)]="password">
+  <button mat-icon-button matSuffix type="button" (click)="showPassword()">
+    <mat-icon>{{ type === 'password' ? 'visibility' : 'visibility_off' }}</mat-icon>
+  </button>
+</mat-form-field>
+
+      <button mat-raised-button class="w-100 mb-2 btn-dark" (click)="login()">Iniciar Sesión</button>
+
+      <button mat-stroked-button class="w-100 mb-2 btn-dark" (click)="registrar()"> Registrarse</button>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<div class="app-container d-flex">
+  <nav class="navbar navbar-dark bg-dark custom-navbar">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+
+      <!-- IZQUIERDA: Logo + Nombre -->
+      <div class="d-flex align-items-center gap-3 nav-left">
+        <a class="navbar-brand d-flex align-items-center" (click)="navigate('productos')" role="button">
+          <img src="/assets/images/icon_reg.png" alt="icono" width="40" height="40" class="me-2">
+          <span class="site-name">Aureo</span>
+        </a>
+      </div>
+
+      <!-- CENTRO: Dropdown + Buscador + Caducidad -->
+      <div class="d-flex align-items-center justify-content-center flex-grow-1 nav-center gap-3">
+
+        <!-- Dropdown Licores -->
+        <div class="dropdown">
+          <button class="btn dropdown-toggle custom-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Licores
+          </button>
+          <ul class="dropdown-menu custom-dropdown-menu">
+            <li><a class="dropdown-item" (click)="filtrarTipo('Brandy')">Brandy</a></li>
+            <li><a class="dropdown-item" (click)="filtrarTipo('Cervezas')">Cervezas</a></li>
+            <li><a class="dropdown-item" (click)="filtrarTipo('Champange')">Champange</a></li>
+            <li><a class="dropdown-item" (click)="filtrarTipo('Mezcal')">Mezcal</a></li>
+            <li><a class="dropdown-item" (click)="filtrarTipo('Ron')">Ron</a></li>
+            <li><a class="dropdown-item" (click)="filtrarTipo('Tequila')">Tequila</a></li>
+            <li><a class="dropdown-item" (click)="filtrarTipo('Vinos')">Vinos</a></li>
+            <li><a class="dropdown-item" (click)="filtrarTipo('Vodka')">Vodka</a></li>
+            <li><a class="dropdown-item" (click)="filtrarTipo('Whisky')">Whisky</a></li>
+          </ul>
+        </div>
+
+        <!-- Buscador -->
+        <form class="search-form d-flex flex-grow-1" role="search">
+          <input class="form-control search-input" type="search" placeholder="Buscar licor..." aria-label="Buscar" />
+          <button class="btn search-btn ms-2" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+
+        <!-- Botón Próximos a Caducar -->
+        <button class="btn btn-outline-light" (click)="navigate('caducidad')">
+          Próximos a Caducar
+        </button>
+      </div>
+
+      <!-- DERECHA: Usuario + Configuración -->
+      <div class="d-flex align-items-center gap-3 nav-right">
+
+        <!-- Dropdown Configuración -->
+        <div class="dropdown dropstart">
+          <button class="btn custom-settings-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-cog"></i>
+          </button>
+          <ul class="dropdown-menu custom-dropdown-menu settings-menu">
+            <li><a class="dropdown-item" (click)="navigate('agregar')">Agregar licores</a></li>
+            <li><a class="dropdown-item" (click)="navigate('empleados')">Gestionar empleados</a></li>
+            <li><a class="dropdown-item" (click)="navigate('administradores')" *ngIf="rol === 'administrador'">Administradores</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" (click)="navigate('/')">Cerrar sesión</a></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </nav>
+</div>

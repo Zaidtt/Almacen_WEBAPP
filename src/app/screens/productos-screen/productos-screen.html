@@ -1,0 +1,83 @@
+<div class="app-container">
+  <div class="header-home">
+    <app-navbar></app-navbar>
+  </div>
+
+<section class="carrusel-section">
+    <div class="carrusel-wrapper">
+  <h2 class="section-title">Próximos a caducar</h2>
+
+  <div class="carrusel-background">
+    <mat-tab-group [(selectedIndex)]="carouselIndex" animationDuration="1000ms">
+      <mat-tab *ngFor="let img of carruselImagenes">
+        <ng-template matTabContent>
+          <img [src]="img" alt="Imagen carrusel" class="carousel-image" />
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
+
+  <div class="proximos-overlay">
+    <div class="card-grid">
+      <mat-card class="producto-card con-fecha" *ngFor="let p of proximosAVencer">
+        <mat-card-header class="card-header">
+          <mat-card-title>{{ p.nombre }}</mat-card-title>
+          <mat-card-subtitle>{{ p.categoria }}</mat-card-subtitle>
+        </mat-card-header>
+
+        <div class="image-container">
+          <img [src]="p.imagen" [alt]="p.nombre" />
+        </div>
+
+        <mat-card-content>
+          <p>Caduca: {{ p.caducidad | date:'dd/MM/yyyy' }}</p>
+        </mat-card-content>
+
+        <mat-card-actions class="card-footer">
+          <div class="boton-wrapper">
+            <button mat-raised-button class="boton-detalles" (click)="verProducto(p)">
+              Detalles
+            </button>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</section>
+
+  <section class="almacen-section">
+    <h2 class="section-title">Almacén</h2>
+     <ng-container *ngFor="let categoria of categorias">
+      <h3>{{ categoria | titlecase }}</h3>
+      <div class="card-grid">
+        <mat-card class="producto-card sin-fecha" *ngFor="let item of almacen[categoria]">
+          <mat-card-header class="card-header">
+            <mat-card-title>{{ item.nombre }}</mat-card-title>
+          </mat-card-header>
+
+          <div class="image-container">
+            <img [src]="item.imagen" [alt]="item.nombre" />
+          </div>
+
+          <mat-card-actions class="card-footer">
+            <div class="boton-wrapper">
+              <button mat-raised-button class="boton-detalles" (click)="verProducto(item)">
+                Detalles
+              </button>
+            </div>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </ng-container>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>Almacén Licor S.A. de C.V.</p>
+      <p>Contacto: contacto@almacenlicor.mx</p>
+      <p>Dirección: Calle 123, Puebla, México</p>
+      <p>© 2025 Todos los derechos reservados</p>
+    </div>
+  </footer>
+</div>

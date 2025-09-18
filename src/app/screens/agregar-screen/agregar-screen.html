@@ -1,0 +1,97 @@
+<div class="header-home">
+  <app-navbar></app-navbar>
+</div>
+
+<div class="agregar-container">
+
+  <mat-card class="agregar-card">
+    <!-- Imagen a la izquierda -->
+    <div class="imagen-wrapper">
+      <div class="imagen-container" [class.preview-activa]="preview" (click)="abrirSelectorImagen()">
+        <label for="imagen-input" class="imagen-label">Subir Imagen</label>
+        <input type="file" #imagenInput id="imagen-input" (change)="onFileSelected($event)" hidden>
+       <img *ngIf="preview" [src]="preview" alt="Preview" class="imagen-preview">
+      </div>
+    </div>
+
+    <!-- Formulario a la derecha -->
+    <div class="form-wrapper">
+        <h2 class="agregar-titulo">Agregar producto nuevo</h2>
+      <form [formGroup]="form" (ngSubmit)="guardar()" class="formulario">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="nombre" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Marca</mat-label>
+          <input matInput formControlName="marca" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Tipo</mat-label>
+          <input matInput formControlName="tipo" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Categoría</mat-label>
+          <mat-select formControlName="categoria" required>
+            <mat-option *ngFor="let c of categorias" [value]="c">{{ c }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Origen</mat-label>
+          <input matInput formControlName="origen" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Sabor</mat-label>
+          <input matInput formControlName="sabor" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Volumen (ml)</mat-label>
+          <input matInput type="number" formControlName="volumen_ml" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Artículos por unidad</mat-label>
+          <input matInput type="number" formControlName="articulos_por_unidad" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha de entrada</mat-label>
+          <input matInput type="date" formControlName="fecha_entrada" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Caducidad</mat-label>
+          <input matInput type="date" formControlName="caducidad" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Lote</mat-label>
+          <input matInput formControlName="lote" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput formControlName="descripcion" rows="3"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Precio</mat-label>
+          <input matInput type="number" formControlName="precio" required>
+        </mat-form-field>
+
+        <div class="form-buttons">
+          <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Guardar</button>
+         <button mat-raised-button class="boton-negro" type="button" (click)="cancelar()">Cancelar</button>
+        </div>
+
+      </form>
+    </div>
+  </mat-card>
+</div>

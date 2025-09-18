@@ -1,0 +1,257 @@
+// =============================
+// Contenedor general
+// =============================
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-top: 64px;
+}
+
+.descripcion {
+  white-space: pre-line;
+  font-family: inherit; // mantiene la fuente original
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+
+// =============================
+// Nav
+// =============================
+.custom-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 64px;
+  z-index: 1000;
+  background-color: #000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.search-form .search-input {
+  border-radius: 6px;
+  background-color: #111;
+  color: #fff;
+}
+
+.search-form .search-btn {
+  background-color: #7c1459;
+  color: #fff;
+  border-radius: 6px;
+}
+
+.custom-dropdown,
+.custom-settings-btn {
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 6px;
+}
+
+.custom-dropdown-menu {
+  background-color: #000;
+  border-radius: 6px;
+  padding: 0.5rem 0;
+  max-height: 300px;
+  overflow-y: auto;
+
+  .dropdown-item {
+    color: #fff;
+    padding: 0.5rem 1rem;
+
+    &:hover {
+      background-color: #7c1459;
+      color: #fff;
+    }
+  }
+}
+
+.settings-menu {
+  min-width: 220px;
+  right: 0;
+  left: auto;
+}
+
+// =============================
+// Titles
+// =============================
+.section-title {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 80px;
+  padding-left: 24px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  margin: 30px 0;
+
+  background: linear-gradient(
+    to right,
+    #201618 0%,
+    #201a1d 30%,
+    #5c1632 70%,
+    #64062a 100%
+  );
+
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+
+  h2 {
+    position: relative;
+    z-index: 1;
+    font-size: 1.9rem;
+    font-weight: 700;
+    margin: 0;
+    color: #ffffff;
+    background: transparent;
+    padding: 0;
+  }
+}
+
+
+
+.main-content {
+  width: 100%;
+  height: 100vh;
+  padding: 40px 60px;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.producto-layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr 300px;
+  gap: 40px;
+  height: 100%;
+}
+
+.producto-imagen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    max-width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+}
+
+.producto-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  .nombre {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #212529;
+  }
+
+  .estrellas {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #ffc107;
+    font-size: 1.5rem;
+
+    .calificacion {
+      margin-left: 8px;
+      color: #555;
+      font-size: 1.2rem;
+    }
+  }
+
+  .dato {
+    font-size: 1.2rem;
+    color: #333;
+
+    strong {
+      color: #000;
+    }
+  }
+
+  .acerca {
+    margin-top: 16px;
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #212529;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #444;
+      line-height: 1.5;
+    }
+  }
+}
+
+.producto-compra {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-left: 1px solid #ddd;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 700px;
+
+  .estado {
+    font-weight: 600;
+    font-size: 1.2rem;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-align: center;
+
+    &.disponible {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    &.agotado {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+  }
+
+  .cantidad-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    label {
+      font-size: 1rem;
+      color: #333;
+    }
+
+    select {
+      padding: 6px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1.2rem;
+    }
+  }
+
+  .btn-agregar {
+    background-color: #7c1459;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #5e0f42;
+    }
+  }
+}

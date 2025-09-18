@@ -1,0 +1,229 @@
+// =============================
+// Contenedor general
+// =============================
+html, body {
+  color-scheme: light;
+  margin: 0;
+  padding: 0;
+  background-color: #fff !important;
+  color: #000;
+  overflow-x: hidden;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+// =============================
+// CARRUSEL REDUCIDO Y CENTRADO
+// =============================
+.carrusel-section {
+  position: relative;
+  padding-top: 100px;
+  margin-bottom: 60px;
+}
+
+.carrusel-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #7c1459;
+  text-align: left;
+}
+
+
+.carrusel-background {
+  width: 100%;
+  max-width: 1200px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  background-color: #fff;
+
+  .carousel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain center;
+  }
+
+  ::ng-deep .mat-tab-labels {
+    display: none;
+  }
+
+  ::ng-deep .mat-tab-body-wrapper {
+    height: 100%;
+  }
+
+  ::ng-deep .mat-tab-body {
+    padding: 0;
+  }
+}
+
+// =============================
+// CARDS SUPERPUESTOS SIN FONDO
+// =============================
+.proximos-overlay {
+  position: absolute;
+  top: 500px;
+  left: 52%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 20px;
+  z-index: 10;
+
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+  }
+}
+
+// =============================
+// CARDS
+// =============================
+.producto-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 250px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background: linear-gradient(
+    to right,
+    #201618 0%,
+    #201a1d 30%,
+    #25141b 70%,
+    #311721 100%
+  );
+  color: #fff;
+
+  .card-header {
+    padding: 8px 12px;
+    height: 84px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    background: transparent;
+
+    mat-card-title,
+    mat-card-subtitle {
+      color: #fff;
+      margin: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    mat-card-title {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    mat-card-subtitle {
+      font-size: 0.85em;
+      opacity: 0.85;
+    }
+  }
+.image-container {
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  padding: 8px;
+
+  img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    display: block;
+  }
+}
+
+.card-footer {
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+
+  .boton-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .boton-detalles {
+    background-color: #7c1459 !important;
+    color: #fff !important;
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 8px 16px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+
+    &:hover {
+      background-color: #5a1044 !important;
+    }
+  }
+}
+}
+
+
+// =============================
+// ALMACÉN
+// =============================
+.almacen-section {
+  padding: 80px 60px;
+  background-color: #fff;
+
+  .section-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: #7c1459;
+  }
+
+  h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 30px 0 15px;
+    color: #444;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+  }
+}
+
+// =============================
+// FOOTER
+// =============================
+.footer {
+  background-color: #1f1e1e;
+  color: #fff;
+  padding: 30px 20px;
+  text-align: center;
+  font-size: 0.9rem;
+  border-top: 1px solid #444;
+
+  .footer-content p {
+    margin: 6px 0;
+  }
+}

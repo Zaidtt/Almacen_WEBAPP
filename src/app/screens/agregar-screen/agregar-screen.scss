@@ -1,0 +1,176 @@
+/* Elimina scroll lateral y ajusta altura */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+/* Contenedor principal */
+.agregar-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+/* Card ocupa toda la pantalla debajo del navbar */
+.agregar-card {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+/* Imagen a la izquierda */
+.imagen-wrapper {
+  width: 40%;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 20px;
+  }
+}
+
+.imagen-container {
+  width: 100%;
+  height: 100%;
+  max-height: 500px;
+  border: 2px dashed #7c1459;
+  border-radius: 8px;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #eaeaea;
+  }
+
+  .imagen-label {
+    font-size: 20px;
+    color: #7c1459;
+    font-weight: bold;
+    text-align: center;
+    z-index: 1;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  img.imagen-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+    z-index: 2;
+  }
+
+  &.preview-activa .imagen-label {
+    display: none;
+  }
+}
+
+/* Formulario a la derecha con scroll */
+.form-wrapper {
+  margin-top: 40px;
+  width: 60%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 40px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 20px;
+    overflow-y: visible;
+  }
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+
+  h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #333;
+  }
+
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 20px;
+
+    .mat-form-field-label {
+      color: #333;
+      font-weight: 500;
+    }
+
+    input, textarea, mat-select {
+      font-size: 14px;
+      color: #000;
+      background-color: #fff;
+      border-radius: 4px;
+    }
+  }
+}
+
+/* Botones */
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 40px;
+  background-color: #7c1459b2;
+  padding: 20px;
+  border-radius: 8px;
+
+  button {
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    font-size: 13px;
+    cursor: pointer;
+    color: #000000;
+
+    &:hover {
+      opacity: 0.9;
+    }
+
+    &.mat-raised-button[color="warn"] {
+      background-color: #555;
+    }
+
+  }
+}
+
+.boton-negro {
+  background-color: #000;
+  color: #fff;
+
+  &:hover {
+    background-color: #222;
+  }
+}

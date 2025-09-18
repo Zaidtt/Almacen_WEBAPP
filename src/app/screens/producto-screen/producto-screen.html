@@ -1,0 +1,49 @@
+<div class="app-container">
+  <div class="header-home">
+    <app-navbar></app-navbar>
+  </div>
+
+<!-- Solo mostrar el contenido si producto ya está cargado -->
+<div class="main-content" *ngIf="producto">
+  <div class="producto-layout">
+    <!-- Imagen del producto -->
+    <div class="producto-imagen">
+      <img [src]="producto.imagen" [alt]="producto.nombre">
+    </div>
+
+    <!-- Información principal-->
+    <div class="producto-info">
+      <h1 class="nombre">{{ producto.nombre }}</h1>
+
+      <hr>
+
+      <div class="dato"><strong>Marca:</strong> {{ producto.marca }}</div>
+      <div class="dato"><strong>Tipo:</strong> {{ producto.tipo }}</div>
+      <div class="dato"><strong>Sabor:</strong> {{ producto.sabor }}</div>
+      <div class="dato"><strong>Contenido:</strong> {{ producto.volumen }} ml</div>
+      <div class="dato"><strong>Cantidad Almacenada:</strong> {{ producto.articulos }}</div>
+      <hr>
+      <div class="acerca">
+        <h2>Acerca de este artículo</h2>
+        <div class="descripcion" [innerText]="formatearDescripcion(producto.descripcion)"></div>
+      </div>
+    </div>
+
+    <!--Barra lateral derecha-->
+    <div class="producto-compra">
+      <div class="estado" [ngClass]="{ disponible: producto.disponible, agotado: !producto.disponible }">
+        {{ producto.disponible ? 'Disponible' : 'No disponible' }}
+      </div>
+
+
+      <!-- Botón editar -->
+      <button class="btn-agregar btn-warning w-100 mb-2" (click)="editarProducto()">
+        <i class="fas fa-edit"></i> Editar producto
+      </button>
+
+
+
+      <app-eliminar-licor-modal [licorNombre]="producto.nombre"></app-eliminar-licor-modal>
+    </div>
+  </div>
+</div>

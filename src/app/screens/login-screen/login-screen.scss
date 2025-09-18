@@ -1,0 +1,104 @@
+.login-container {
+  display: flex;
+  height: 100vh;
+  background-color: #ffffff;
+}
+
+.login-bg {
+  flex: 0 0 50%;
+  background-image: url('/assets/images/bg_reg.png');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .login-welcome {
+    text-align: center;
+    z-index: 2;
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 1rem;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: #ffffff;
+      margin: 0 auto;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    }
+  }
+}
+
+.login-header {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 10;
+
+  h1 {
+    font-size: 6rem;
+    font-weight: 1500;
+    color: #000000;
+    margin: 0;
+  }
+
+  img {
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
+  }
+}
+
+.login-side {
+  flex: 0 0 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  position: relative;
+}
+
+/* Card centrado */
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 3rem;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+  border-top: 5px solid #63112a;
+
+  h2 {
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #272727;
+    text-align: center;
+  }
+
+  mat-form-field {
+    margin-bottom: 1rem;
+  }
+
+  .btn-dark {
+    background-color: #333;
+    color: #fff;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  .btn-dark:hover {
+    background-color: #1f1f1f;
+  }
+}

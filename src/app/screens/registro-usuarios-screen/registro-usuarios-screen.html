@@ -1,0 +1,95 @@
+<div class="login-container">
+  <div class="login-bg">
+    <div class="login-welcome">
+      <h1>¡BIENVENIDO!</h1>
+      <h3>¡Regístrate para organizar tu almacén como nunca!</h3>
+    </div>
+  </div>
+
+  <div class="login-side">
+    <div class="login-header">
+      <img src="/assets/images/icon_reg.png" alt="Logo">
+      <h1>Aureo</h1>
+    </div>
+
+    <mat-card class="login-card">
+      <h2>Registro de {{tipo_user || 'Usuario'}}</h2>
+      <mat-radio-group [(ngModel)]="tipo_user" (change)="radioChange($event)">
+        <mat-radio-button value="administrador">Administrador</mat-radio-button>
+        <mat-radio-button value="empleado">Empleado</mat-radio-button>
+      </mat-radio-group>
+      <hr>
+      <div class="form-content">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Correo</mat-label>
+          <input matInput [(ngModel)]="user.email" name="email" type="email">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Contraseña</mat-label>
+          <input matInput [(ngModel)]="user.password" name="password" type="password">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Confirmar Contraseña</mat-label>
+          <input matInput [(ngModel)]="user.confirmPassword" name="confirmPassword" type="password">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Nombre</mat-label>
+          <input matInput [(ngModel)]="user.nombre" name="nombre">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Apellido</mat-label>
+          <input matInput [(ngModel)]="user.apellido" name="apellido">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100" *ngIf="isAdmin">
+          <mat-label>Clave Admin</mat-label>
+          <input matInput [(ngModel)]="user.clave_admin" name="clave_admin">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100" *ngIf="isAdmin">
+          <mat-label>RFC</mat-label>
+          <input matInput [(ngModel)]="user.rfc" name="rfc">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100" *ngIf="isAdmin">
+          <mat-label>Edad</mat-label>
+          <input matInput [(ngModel)]="user.edad" name="edad" type="number">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100" *ngIf="isAdmin">
+          <mat-label>Ocupación</mat-label>
+          <input matInput [(ngModel)]="user.ocupacion" name="ocupacion">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100" *ngIf="isEmpleado">
+          <mat-label>Clave Empleado</mat-label>
+          <input matInput [(ngModel)]="user.clave_empleado" name="clave_empleado">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100" *ngIf="isEmpleado">
+          <mat-label>Puesto</mat-label>
+          <input matInput [(ngModel)]="user.puesto" name="puesto">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Teléfono</mat-label>
+          <input matInput [(ngModel)]="user.telefono" name="telefono">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100" *ngIf="isEmpleado">
+          <mat-label>Fecha de Ingreso</mat-label>
+          <input matInput [(ngModel)]="user.fecha_ingreso" name="fecha_ingreso" type="date">
+        </mat-form-field>
+      </div>
+
+      <div class="form-actions">
+  <button mat-raised-button class="w-100 mb-2 btn-dark" (click)="registrar()">Registrarse</button>
+  <button mat-stroked-button class="w-100 mb-2 btn-dark" (click)="regresar()">Atrás</button>
+</div>
+    </mat-card>
+  </div>
+</div>
