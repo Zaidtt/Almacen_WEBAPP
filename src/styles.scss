@@ -1,4 +1,3 @@
-
 // Include theming for Angular Material with `mat.theme()`.
 // This Sass mixin will define CSS variables that are used for styling Angular Material
 // components according to the Material 3 design spec.
@@ -34,10 +33,35 @@ body {
   // Reset the user agent margin.
   margin: 0;
 }
+
+:root {
+  --navbar-height: 64px; /* ajusta si tu navbar mide distinto */
+}
+
+/* Hacer el navbar fijo en la parte superior */
+.custom-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1050;
+  height: var(--navbar-height);
+}
+
+/* Empujar TODO el contenido principal hacia abajo — QUITADO para no afectar todas las páginas */
+/* .app-container {
+  padding-top: var(--navbar-height);
+  box-sizing: border-box;
+} */
+
+/* Si usas .container en otras pantallas, asegurar que respete el box-sizing */
+.container {
+  box-sizing: border-box;
+}
+
 /* You can add global styles to this file, and also import other style files */
 
 /* Importing Bootstrap SCSS file. */
-
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,0 +1,70 @@
+.container.calendar-container {
+  /* ocupar la altura de la ventana menos la altura aproximada del navbar
+     (ajusta 64px si tu navbar tiene otra altura) */
+  min-height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* centra verticalmente */
+  align-items: center;     /* centra horizontalmente */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.calendar-controls {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:12px;
+  width: 100%;
+  max-width: 1100px; /* ajusta según diseño */
+  box-sizing: border-box;
+}
+
+.month-label { font-weight:600; text-transform:capitalize; }
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  align-items: start;
+  width: 100%;
+  max-width: 1500px; /* ajusta según diseño */
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.weekday {
+  font-weight:700;
+  text-align:center;
+  padding:6px 4px;
+  color:#555;
+}
+
+.day-cell {
+  min-height: 86px;
+  border-radius:6px;
+  background:#fafafa;
+  border:1px solid #eee;
+  padding:8px;
+  box-sizing:border-box;
+  position:relative;
+}
+
+.day-cell.clickable {
+  cursor:pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: transform .12s;
+}
+.day-cell.clickable:hover { transform: translateY(-4px); }
+
+.day-number { font-size:1rem; color:#333; }
+.day-count {
+  position:absolute;
+  bottom:8px;
+  right:8px;
+  background:#7c1459;
+  color:#fff;
+  padding:4px 8px;
+  border-radius:12px;
+  font-size:0.85rem;
+}

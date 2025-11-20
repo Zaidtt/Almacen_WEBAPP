@@ -21,8 +21,11 @@ html, body {
 // =============================
 .carrusel-section {
   position: relative;
+  z-index: 0;
   padding-top: 100px;
-  margin-bottom: 60px;
+  /* espacio extra en la parte inferior mayor para soportar más solapamiento */
+  padding-bottom: calc(var(--card-height) * 0.6 + 40px);
+  margin-bottom: 0;
 }
 
 .carrusel-wrapper {
@@ -73,26 +76,32 @@ html, body {
 // CARDS SUPERPUESTOS SIN FONDO
 // =============================
 .proximos-overlay {
-  position: absolute;
-  top: 500px;
-  left: 52%;
-  transform: translateX(-50%);
+  position: relative;
+  z-index: 2; /* encima del carrusel */
+  /* subir la sección más para que queden más encimadas con el carrusel */
+  margin-top: -2;
+  padding: 12px 16px 32px;
+  box-sizing: border-box;
   width: 100%;
-  max-width: 1200px;
-  padding: 0 20px;
-  z-index: 10;
-
-
-  .card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
-  }
+  display: flex;
+  justify-content: center;
 }
 
-// =============================
-// CARDS
-// =============================
+/* Grid: 5 cards por fila (centrado y con ancho máximo) */
+.proximos-overlay .card-grid {
+  width: 100%;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  align-items: start;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+/* ============================= */
+/* CARDS - estilo solicitado (imagen contain, tamaño original) */
+/* ============================= */
 .producto-card {
   display: flex;
   flex-direction: column;
@@ -109,6 +118,10 @@ html, body {
     #311721 100%
   );
   color: #fff;
+
+  /* Forzar altura mínima para que la card no dependa de la imagen */
+  min-height: var(--card-height);
+  box-sizing: border-box;
 
   .card-header {
     padding: 8px 12px;
@@ -138,51 +151,109 @@ html, body {
       opacity: 0.85;
     }
   }
-.image-container {
-  height: 180px;
+
+  .image-container {
+    /* contenedor con altura fija; la imagen se centra */
+    height: 180px; /* altura fija para todas las imágenes */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    padding: 8px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .image-container img {
+    /* imagen con tamaño uniforme: altura fija, ancho automático, sin recortar */
+    height: 140px; /* ajusta si quieres imágenes más grandes/pequeñas */
+    width: auto;
+    object-fit: contain; /* mantiene proporción sin recortar */
+    display: block;
+  }
+
+  .card-footer {
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+
+    .boton-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .boton-detalles {
+      background-color: #7c1459 !important;
+      color: #fff !important;
+      font-weight: bold;
+      border-radius: 6px;
+      padding: 8px 16px;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+
+      &:hover {
+        background-color: #5a1044 !important;
+      }
+    }
+  }
+}
+
+/* variable para controlar altura de las cards (ajusta si cambias el tamaño) */
+:root {
+  --card-height: 260px;
+}
+
+/* Forzar tamaño de las cards que van encima del carrusel */
+.producto-card.con-fecha {
+  display: flex;
+  flex-direction: column;
+  height: var(--card-height);
+  min-height: var(--card-height);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* imagen específica en con-fecha mantiene contain y no estira */
+.producto-card.con-fecha .image-container {
+  height: calc(var(--card-height) * 0.62);
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #fff;
   padding: 8px;
-
-  img {
-    max-height: 100%;
-    max-width: 100%;
-    object-fit: contain;
-    display: block;
-  }
+  box-sizing: border-box;
+}
+.producto-card.con-fecha .image-container img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
 }
 
-.card-footer {
-  padding: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: transparent;
-
-  .boton-wrapper {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-
-  .boton-detalles {
-    background-color: #7c1459 !important;
-    color: #fff !important;
-    font-weight: bold;
-    border-radius: 6px;
-    padding: 8px 16px;
-    text-transform: uppercase;
-    font-size: 0.85rem;
-
-    &:hover {
-      background-color: #5a1044 !important;
-    }
-  }
+/* Asegurar que el contenido restante empuje el footer hacia abajo */
+.producto-card.con-fecha mat-card-content {
+  flex: 1 1 auto;
 }
+.producto-card.con-fecha mat-card-actions {
+  flex: 0 0 auto;
 }
 
+/* Responsive: reducir columnas en pantallas más pequeñas */
+@media (max-width: 1400px) {
+  .proximos-overlay .card-grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 1100px) {
+  .proximos-overlay .card-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 800px) {
+  .proximos-overlay .card-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 420px) {
+  .proximos-overlay .card-grid { grid-template-columns: repeat(1, 1fr); }
+}
 
 // =============================
 // ALMACÉN
@@ -227,3 +298,30 @@ html, body {
     margin: 6px 0;
   }
 }
+
+/* Search results: 6 columnas */
+.search-results .card-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  align-items: start;
+  margin-top: 16px;
+}
+
+/* Responsive: bajar columnas en pantallas pequeñas */
+@media (max-width: 1400px) {
+  .search-results .card-grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 1100px) {
+  .search-results .card-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 800px) {
+  .search-results .card-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 420px) {
+  .search-results .card-grid { grid-template-columns: repeat(1, 1fr); }
+}
+
+/* Títulos y estilos */
+.result-header .small-label { font-size: 0.8rem; color: #666; }
+.search-title { color: #7c1459; font-weight: 700; }

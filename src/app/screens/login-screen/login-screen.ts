@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -29,9 +29,10 @@ import { FacadeService } from '../../services/facade.service';
 export class LoginScreen implements OnInit {
   public email: string = '';
   public password: string = '';
-  public type: string = 'password';
+  public type: 'password' | 'text' = 'password';
   public errors: any = {};
   public load: boolean = false;
+  public showPasswordFlag: boolean = false;
 
   private router = inject(Router);
 
@@ -39,7 +40,12 @@ export class LoginScreen implements OnInit {
 
   ngOnInit(): void {}
 
-  public login(): void {
+  public login(form?: NgForm): void {
+    if (form && form.invalid) {
+      Object.keys(form.controls).forEach(k => this.markTouched(k, form));
+      return;
+    }
+
     this.errors = {};
 
     // Validación usando FacadeService
@@ -77,5 +83,17 @@ export class LoginScreen implements OnInit {
 
   public registrar(): void {
     this.router.navigate(['registro']);
+  }
+  public togglePassword(): void { this.showPasswordFlag = !this.showPasswordFlag; }
+
+  // marca como touched (usado en blur) para que mat-error aparezca
+  public markTouched(controlName: string, form?: NgForm): void {
+    if (!form || !form.controls) return;
+    const ctrl = form.controls[controlName] as any;
+    if (ctrl?.control?.markAsTouched) {
+      ctrl.control.markAsTouched();
+    } else if (ctrl?.markAsTouched) {
+      ctrl.markAsTouched();
+    }
   }
 }

@@ -1,0 +1,33 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+  <h2>Productos {{ tipo }}</h2>
+
+  <div *ngIf="loading">Cargando...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="licores.length === 0 && !loading && !error">
+    <p>No se encontraron licores para este tipo.</p>
+  </div>
+
+  <div class="card-grid" *ngIf="licores.length > 0">
+    <mat-card class="producto-card sin-fecha" *ngFor="let l of licores">
+      <mat-card-header class="card-header">
+        <mat-card-title>{{ l.nombre }}</mat-card-title>
+        <mat-card-subtitle>{{ l.categoria }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <div class="image-container">
+        <img [src]="l.imagen" [alt]="l.nombre" />
+      </div>
+
+      <mat-card-actions class="card-footer">
+        <div class="boton-wrapper">
+          <button mat-raised-button class="boton-detalles" (click)="verProducto(l)">
+            Detalles
+          </button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

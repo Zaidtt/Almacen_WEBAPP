@@ -25,8 +25,6 @@ export class NavbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
-
     if (this.activatedRoute.snapshot.params['id'] !== undefined) {
       this.editar = true;
     }
@@ -37,6 +35,17 @@ export class NavbarComponent implements OnInit {
   }
 
   public filtrarTipo(tipo: string): void {
-    this.router.navigate(['/agregar'], { queryParams: { tipo } });
+    this.router.navigate(['/productos/tipo'], { queryParams: { tipo } });
+  }
+
+  public irCaducidad(): void {
+    // Navegar al calendario interactivo de caducidad
+    this.router.navigate(['/productos/caducidad-calendar']);
+  }
+
+  public onSearch(query: string): void {
+    const q = (query ?? '').toString().trim();
+    if (!q) return;
+    this.router.navigate(['/productos/buscar'], { queryParams: { q } });
   }
 }

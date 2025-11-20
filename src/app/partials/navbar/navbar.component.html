@@ -34,15 +34,15 @@
         </div>
 
         <!-- Buscador -->
-        <form class="search-form d-flex flex-grow-1" role="search">
-          <input class="form-control search-input" type="search" placeholder="Buscar licor..." aria-label="Buscar" />
-          <button class="btn search-btn ms-2" type="submit">
+        <form class="search-form d-flex flex-grow-1" role="search" (submit)="onSearch(searchInput.value); $event.preventDefault()">
+          <input #searchInput class="form-control search-input" type="search" placeholder="Buscar licor..." aria-label="Buscar" />
+          <button class="btn search-btn ms-2" type="submit" (click)="onSearch(searchInput.value)">
             <i class="fas fa-search"></i>
           </button>
         </form>
 
         <!-- Botón Próximos a Caducar -->
-        <button class="btn btn-outline-light" (click)="navigate('caducidad')">
+        <button class="btn btn-outline-light" (click)="irCaducidad()">
           Próximos a Caducar
         </button>
       </div>
@@ -57,8 +57,8 @@
           </button>
           <ul class="dropdown-menu custom-dropdown-menu settings-menu">
             <li><a class="dropdown-item" (click)="navigate('agregar')">Agregar licores</a></li>
-            <li><a class="dropdown-item" (click)="navigate('empleados')">Gestionar empleados</a></li>
-            <li><a class="dropdown-item" (click)="navigate('administradores')" *ngIf="rol === 'administrador'">Administradores</a></li>
+           <!--- <li><a class="dropdown-item" (click)="navigate('empleados')">Gestionar empleados</a></li>-->
+            <!--<li><a class="dropdown-item" (click)="navigate('administradores')" *ngIf="rol === 'administrador'">Administradores</a></li>-->
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item text-danger" (click)="navigate('/')">Cerrar sesión</a></li>
           </ul>

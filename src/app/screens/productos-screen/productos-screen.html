@@ -18,7 +18,7 @@
   </div>
 </div>
 
-  <div class="proximos-overlay">
+  <div id="proximos-section" class="proximos-overlay">
     <div class="card-grid">
       <mat-card class="producto-card con-fecha" *ngFor="let p of proximosAVencer">
         <mat-card-header class="card-header">
@@ -80,4 +80,36 @@
       <p>© 2025 Todos los derechos reservados</p>
     </div>
   </footer>
+
+  <!-- Bloque de resultados de búsqueda -->
+  <div *ngIf="searchQuery" class="search-results">
+    <div class="result-header d-flex align-items-center gap-3">
+      <i class="fas fa-search fa-2x" style="color:#7c1459"></i>
+      <div>
+        <div class="small-label">Resultado de</div>
+        <h2 class="search-title" style="color:#7c1459; margin:0; font-size:1.6rem;">{{ searchQuery }}</h2>
+      </div>
+    </div>
+
+    <div class="card-grid" *ngIf="(licores ?? []).length > 0">
+      <mat-card class="producto-card" *ngFor="let l of licores ?? []">
+        <mat-card-header class="card-header">
+          <mat-card-title>{{ l.nombre }}</mat-card-title>
+          <mat-card-subtitle>{{ l.categoria }}</mat-card-subtitle>
+        </mat-card-header>
+        <div class="image-container">
+          <img [src]="l.imagen" [alt]="l.nombre" />
+        </div>
+        <mat-card-actions class="card-footer">
+          <div class="boton-wrapper">
+            <button mat-raised-button class="boton-detalles" (click)="verProducto(l)">Detalles</button>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+    <div *ngIf="!loading && (!licores || licores.length === 0)">
+      <p>No se encontraron resultados para "{{ searchQuery }}".</p>
+    </div>
+  </div>
 </div>

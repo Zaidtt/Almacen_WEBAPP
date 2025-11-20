@@ -2,8 +2,9 @@
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
   width: 100%;
-  height: 64px;
+  height: 72px; /* ajusta si tu navbar es más alto/bajo */
   z-index: 1000;
   background-color: #000;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -145,4 +146,37 @@
       }
     }
   }
+}
+
+/* Asegurar que el navbar esté por encima y no afecte el flujo visual */
+.navbar.custom-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 72px; /* ajusta si tu navbar es más alto/bajo */
+  z-index: 1000;
+}
+
+/* Fijar navbar y definir altura consistente */
+.navbar.custom-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 72px; /* ajustar si tu navbar es más alto/bajo */
+  z-index: 1000;
+}
+
+/* Evita que el contenido del navbar se superponga visualmente */
+.app-navbar-spacer {
+  height: 72px; /* mismo valor que .navbar.custom-navbar */
+}
+
+/* Ajustes visuales opcionales */
+.app-container {
+  /* mantener caja consistente */
+  box-sizing: border-box;
 }

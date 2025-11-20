@@ -1,0 +1,59 @@
+/* importar estilos comunes de productos (si existe) */
+@import '../productos-screen/productos-screen.scss';
+
+/* contenedor y header */
+.container { padding: 20px; }
+.container {
+  /* padding original */
+  padding: 20px;
+  /* añadir espacio superior igual a la altura del navbar para que el contenido no quede tapado */
+  padding-top: calc(var(--navbar-height) + 40px);
+  box-sizing: border-box;
+}
+.result-header { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+.result-header .small-label { font-size:0.9rem; color:#666; }
+.search-title { color:#7c1459; font-weight:700; margin:0; font-size:1.6rem; }
+
+/* GRID: 6 columnas por fila (responsive) */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  align-items: start;
+  margin-top: 16px;
+}
+
+/* Responsive */
+@media (max-width: 1400px) { .card-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 1100px) { .card-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 800px)  { .card-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 420px)  { .card-grid { grid-template-columns: repeat(1, 1fr); } }
+
+/* Si por alguna razón la importación no aplica, usar estilos mínimos para .producto-card y .image-container */
+.producto-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background: linear-gradient(to right, #201618 0%, #201a1d 30%, #25141b 70%, #311721 100%);
+  color: #fff;
+  box-sizing: border-box;
+}
+.producto-card .image-container {
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  overflow: hidden;
+}
+.producto-card .image-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.producto-card .card-header { padding: 8px 12px; }
+.producto-card .card-footer { padding: 12px; display:flex; justify-content:center; }

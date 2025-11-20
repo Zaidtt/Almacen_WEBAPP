@@ -19,45 +19,88 @@
         <mat-radio-button value="empleado">Empleado</mat-radio-button>
       </mat-radio-group>
       <hr>
-      <div class="form-content">
+      <form #regForm="ngForm" class="form-content">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Correo</mat-label>
-          <input matInput [(ngModel)]="user.email" name="email" type="email">
+          <input matInput [(ngModel)]="user.email" name="email" type="email" required email
+                 #emailCtrl="ngModel"
+                 [ngModelOptions]="{updateOn: 'blur'}"
+                 (blur)="markTouched('email', regForm)">
+          <mat-error *ngIf="regForm.controls?.['email']?.errors?.['required'] && regForm.controls?.['email']?.touched">Falta llenar este campo</mat-error>
+          <mat-error *ngIf="regForm.controls?.['email']?.errors?.['email'] && regForm.controls?.['email']?.touched">Correo inválido</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Contraseña</mat-label>
-          <input matInput [(ngModel)]="user.password" name="password" type="password">
+          <input matInput [(ngModel)]="user.password" name="password" [type]="showPassword ? 'text' : 'password'"
+                 required minlength="8" #passCtrl="ngModel"
+                 [ngModelOptions]="{updateOn: 'blur'}"
+                 (blur)="onPasswordChange(regForm)">
+          <button mat-icon-button matSuffix type="button" (click)="togglePassword()" aria-label="Mostrar/ocultar contraseña">
+            <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="regForm.controls?.['password']?.errors?.['required'] && regForm.controls?.['password']?.touched">Falta llenar este campo</mat-error>
+          <mat-error *ngIf="regForm.controls?.['password']?.errors?.['minlength'] && regForm.controls?.['password']?.touched">Mínimo 8 caracteres</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Confirmar Contraseña</mat-label>
-          <input matInput [(ngModel)]="user.confirmPassword" name="confirmPassword" type="password">
+          <input matInput [(ngModel)]="user.confirmPassword" name="confirmPassword" [type]="showConfirmPassword ? 'text' : 'password'"
+                 required #confirmCtrl="ngModel"
+                 [ngModelOptions]="{updateOn: 'blur'}"
+                 (blur)="onPasswordChange(regForm)">
+          <button mat-icon-button matSuffix type="button" (click)="toggleConfirmPassword()" aria-label="Mostrar/ocultar confirmación">
+            <mat-icon>{{ showConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="regForm.controls?.['confirmPassword']?.errors?.['required'] && regForm.controls?.['confirmPassword']?.touched">Falta llenar este campo</mat-error>
+          <mat-error *ngIf="(regForm.controls?.['confirmPassword']?.errors?.['mismatch'] || passwordMismatch()) && regForm.controls?.['confirmPassword']?.touched">
+            Las contraseñas no coinciden
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Nombre</mat-label>
-          <input matInput [(ngModel)]="user.nombre" name="nombre">
+          <input matInput [(ngModel)]="user.nombre" name="nombre" required pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" #nombreCtrl="ngModel"
+                 [ngModelOptions]="{updateOn: 'blur'}"
+                 (blur)="markTouched('nombre', regForm)">
+          <mat-error *ngIf="regForm.controls?.['nombre']?.errors?.['required'] && regForm.controls?.['nombre']?.touched">Falta llenar este campo</mat-error>
+          <mat-error *ngIf="regForm.controls?.['nombre']?.errors?.['pattern'] && regForm.controls?.['nombre']?.touched">Solo letras y espacios</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Apellido</mat-label>
-          <input matInput [(ngModel)]="user.apellido" name="apellido">
+          <input matInput [(ngModel)]="user.apellido" name="apellido" required pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" #apellidoCtrl="ngModel"
+                 [ngModelOptions]="{updateOn: 'blur'}"
+                 (blur)="markTouched('apellido', regForm)">
+          <mat-error *ngIf="regForm.controls?.['apellido']?.errors?.['required'] && regForm.controls?.['apellido']?.touched">Falta llenar este campo</mat-error>
+          <mat-error *ngIf="regForm.controls?.['apellido']?.errors?.['pattern'] && regForm.controls?.['apellido']?.touched">Solo letras y espacios</mat-error>
         </mat-form-field>
 
+        <!-- RFC / Clave admin -->
         <mat-form-field appearance="outline" class="w-100" *ngIf="isAdmin">
           <mat-label>Clave Admin</mat-label>
-          <input matInput [(ngModel)]="user.clave_admin" name="clave_admin">
+          <input matInput [(ngModel)]="user.clave_admin" name="clave_admin" required *ngIf="isAdmin" #claveAdminCtrl="ngModel"
+                 [ngModelOptions]="{updateOn: 'blur'}"
+                 (blur)="markTouched('clave_admin', regForm)">
+          <mat-error *ngIf="regForm.controls?.['clave_admin']?.errors?.['required'] && regForm.controls?.['clave_admin']?.touched">Falta llenar este campo</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="w-100" *ngIf="isAdmin">
           <mat-label>RFC</mat-label>
-          <input matInput [(ngModel)]="user.rfc" name="rfc">
+          <input matInput [(ngModel)]="user.rfc" name="rfc" minlength="13" maxlength="13" required *ngIf="isAdmin" #rfcCtrl="ngModel"
+                 [ngModelOptions]="{updateOn: 'blur'}"
+                 (blur)="markTouched('rfc', regForm)">
+          <mat-error *ngIf="regForm.controls?.['rfc']?.errors?.['required'] && regForm.controls?.['rfc']?.touched">Falta llenar este campo</mat-error>
+          <mat-error *ngIf="(regForm.controls?.['rfc']?.errors?.['minlength'] || regForm.controls?.['rfc']?.errors?.['maxlength']) && regForm.controls?.['rfc']?.touched">RFC debe tener 13 caracteres</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="w-100" *ngIf="isAdmin">
           <mat-label>Edad</mat-label>
-          <input matInput [(ngModel)]="user.edad" name="edad" type="number">
+          <input matInput [(ngModel)]="user.edad" name="edad" type="number" min="18" max="120" *ngIf="isAdmin" #edadCtrl="ngModel"
+                 [ngModelOptions]="{updateOn: 'blur'}"
+                 (blur)="markTouched('edad', regForm)">
+          <mat-error *ngIf="regForm.controls?.['edad']?.errors?.['min']">Edad mínima 18</mat-error>
+          <mat-error *ngIf="regForm.controls?.['edad']?.errors?.['max']">Edad inválida</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="w-100" *ngIf="isAdmin">
@@ -77,19 +120,25 @@
 
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Teléfono</mat-label>
-          <input matInput [(ngModel)]="user.telefono" name="telefono">
+          <input matInput [(ngModel)]="user.telefono" name="telefono" required pattern="^[0-9]{10}$"
+                 type="tel" #telCtrl="ngModel"
+                 [ngModelOptions]="{updateOn: 'blur'}"
+                 (blur)="markTouched('telefono', regForm)"
+                 (input)="onlyDigits($event)" maxlength="10" inputmode="numeric">
+          <mat-error *ngIf="regForm.controls?.['telefono']?.errors?.['required'] && regForm.controls?.['telefono']?.touched">Falta llenar este campo</mat-error>
+          <mat-error *ngIf="regForm.controls?.['telefono']?.errors?.['pattern'] && regForm.controls?.['telefono']?.touched">Teléfono inválido (10 dígitos)</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="w-100" *ngIf="isEmpleado">
           <mat-label>Fecha de Ingreso</mat-label>
           <input matInput [(ngModel)]="user.fecha_ingreso" name="fecha_ingreso" type="date">
         </mat-form-field>
-      </div>
+      </form>
 
       <div class="form-actions">
-  <button mat-raised-button class="w-100 mb-2 btn-dark" (click)="registrar()">Registrarse</button>
-  <button mat-stroked-button class="w-100 mb-2 btn-dark" (click)="regresar()">Atrás</button>
-</div>
+        <button mat-raised-button class="w-100 mb-2 btn-dark" (click)="registrar()" [disabled]="regForm.invalid || passwordMismatch()">Registrarse</button>
+        <button mat-stroked-button class="w-100 mb-2 btn-dark" (click)="regresar()">Atrás</button>
+      </div>
     </mat-card>
   </div>
 </div>

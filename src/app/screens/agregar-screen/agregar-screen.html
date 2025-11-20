@@ -10,28 +10,32 @@
       <div class="imagen-container" [class.preview-activa]="preview" (click)="abrirSelectorImagen()">
         <label for="imagen-input" class="imagen-label">Subir Imagen</label>
         <input type="file" #imagenInput id="imagen-input" (change)="onFileSelected($event)" hidden>
-       <img *ngIf="preview" [src]="preview" alt="Preview" class="imagen-preview">
+         <img *ngIf="preview" [src]="preview" alt="Preview" class="imagen-preview">
       </div>
     </div>
 
     <!-- Formulario a la derecha -->
     <div class="form-wrapper">
-        <h2 class="agregar-titulo">Agregar producto nuevo</h2>
+        <h2 class="agregar-titulo">{{ titulo }}</h2>
       <form [formGroup]="form" (ngSubmit)="guardar()" class="formulario">
 
         <mat-form-field appearance="outline">
           <mat-label>Nombre</mat-label>
           <input matInput formControlName="nombre" required>
+          <mat-error *ngIf="form.get('nombre')?.hasError('required')">Falta llenar este campo</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Marca</mat-label>
           <input matInput formControlName="marca" required>
+          <mat-error *ngIf="form.get('marca')?.hasError('required')">Falta llenar este campo</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Tipo</mat-label>
           <input matInput formControlName="tipo" required>
+          <mat-error *ngIf="form.get('tipo')?.hasError('required')">Falta llenar este campo</mat-error>
+          <mat-error *ngIf="form.get('tipo')?.hasError('pattern')">Solo letras y espacios</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -39,41 +43,54 @@
           <mat-select formControlName="categoria" required>
             <mat-option *ngFor="let c of categorias" [value]="c">{{ c }}</mat-option>
           </mat-select>
+          <mat-error *ngIf="form.get('categoria')?.hasError('required')">Falta llenar este campo</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Origen</mat-label>
           <input matInput formControlName="origen" required>
+          <mat-error *ngIf="form.get('origen')?.hasError('required')">Falta llenar este campo</mat-error>
+          <mat-error *ngIf="form.get('origen')?.hasError('pattern')">Solo letras y espacios</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Sabor</mat-label>
           <input matInput formControlName="sabor" required>
+          <mat-error *ngIf="form.get('sabor')?.hasError('required')">Falta llenar este campo</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Volumen (ml)</mat-label>
           <input matInput type="number" formControlName="volumen_ml" required>
+          <mat-error *ngIf="form.get('volumen_ml')?.hasError('required')">Falta llenar este campo</mat-error>
+          <mat-error *ngIf="form.get('volumen_ml')?.hasError('min')">Valor inválido</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>Artículos por unidad</mat-label>
+          <mat-label>Artículos por guardar</mat-label>
           <input matInput type="number" formControlName="articulos_por_unidad" required>
+          <mat-error *ngIf="form.get('articulos_por_unidad')?.hasError('required')">Falta llenar este campo</mat-error>
+          <mat-error *ngIf="form.get('articulos_por_unidad')?.hasError('min')">Valor inválido</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Fecha de entrada</mat-label>
           <input matInput type="date" formControlName="fecha_entrada" required>
+          <mat-error *ngIf="form.get('fecha_entrada')?.hasError('required')">Falta llenar este campo</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Caducidad</mat-label>
-          <input matInput type="date" formControlName="caducidad" required>
+          <input matInput type="date" formControlName="caducidad">
+          <mat-error *ngIf="form.get('caducidad')?.hasError('caducidadAntes') || form.hasError('caducidadAntes')">
+            La fecha de caducidad debe ser igual o posterior a la fecha de entrada
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Lote</mat-label>
           <input matInput formControlName="lote" required>
+          <mat-error *ngIf="form.get('lote')?.hasError('required')">Falta llenar este campo</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -84,6 +101,8 @@
         <mat-form-field appearance="outline">
           <mat-label>Precio</mat-label>
           <input matInput type="number" formControlName="precio" required>
+          <mat-error *ngIf="form.get('precio')?.hasError('required')">Falta llenar este campo</mat-error>
+          <mat-error *ngIf="form.get('precio')?.hasError('min')">Valor inválido</mat-error>
         </mat-form-field>
 
         <div class="form-buttons">

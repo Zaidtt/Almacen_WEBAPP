@@ -1,0 +1,24 @@
+<app-navbar></app-navbar>
+
+<div class="container calendar-container">
+  <h2>Calendario de caducidad</h2>
+
+  <div class="calendar-controls">
+    <button class="btn btn-outline-secondary" (click)="prevMonth()">&lt;</button>
+    <div class="month-label">{{ nombreMes() }}</div>
+    <button class="btn btn-outline-secondary" (click)="nextMonth()">&gt;</button>
+  </div>
+
+  <div *ngIf="loading">Cargando calendario...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div class="calendar-grid" *ngIf="!loading && !error">
+    <div class="weekday" *ngFor="let w of ['Lun','Mar','Mié','Jue','Vie','Sáb','Dom']">{{ w }}</div>
+    <ng-container *ngFor="let d of days">
+      <div class="day-cell" [class.clickable]="(d?.count ?? 0) > 0" (click)="(d?.count ?? 0) > 0 && abrirFecha(d?.iso ?? '')">
+        <div class="day-number">{{ d?.date?.getDate() }}</div>
+        <div class="day-count" *ngIf="(d?.count ?? 0) > 0">{{ d?.count }}</div>
+      </div>
+    </ng-container>
+  </div>
+</div>

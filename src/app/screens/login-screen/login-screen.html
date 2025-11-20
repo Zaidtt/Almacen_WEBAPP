@@ -15,22 +15,45 @@
     <mat-card class="login-card">
       <h2>Login</h2>
 
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Correo</mat-label>
-        <input matInput [(ngModel)]="email" type="email" />
-      </mat-form-field>
+      <form #loginForm="ngForm" class="form-content" novalidate>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Correo</mat-label>
+          <input matInput
+                 name="email"
+                 [(ngModel)]="email"
+                 type="email"
+                 required
+                 email
+                 #emailCtrl="ngModel"
+                 [ngModelOptions]="{updateOn: 'blur'}">
+          <mat-error *ngIf="emailCtrl?.errors?.['required'] && emailCtrl?.touched">Falta llenar este campo</mat-error>
+          <mat-error *ngIf="emailCtrl?.errors?.['email'] && emailCtrl?.touched">Correo inválido</mat-error>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline" class="w-100">
-  <mat-label>Contraseña</mat-label>
-  <input matInput [type]="type" [(ngModel)]="password">
-  <button mat-icon-button matSuffix type="button" (click)="showPassword()">
-    <mat-icon>{{ type === 'password' ? 'visibility' : 'visibility_off' }}</mat-icon>
-  </button>
-</mat-form-field>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Contraseña</mat-label>
+          <!-- mantiene tu función showPassword() -->
+          <input matInput
+                 name="password"
+                 [(ngModel)]="password"
+                 [type]="type"
+                 required
+                 minlength="8"
+                 #passCtrl="ngModel"
+                 [ngModelOptions]="{updateOn: 'blur'}">
+          <button mat-icon-button matSuffix type="button" (click)="showPassword()" aria-label="Mostrar/ocultar contraseña">
+            <mat-icon>{{ type === 'password' ? 'visibility' : 'visibility_off' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="passCtrl?.errors?.['required'] && passCtrl?.touched">Falta llenar este campo</mat-error>
+          <mat-error *ngIf="passCtrl?.errors?.['minlength'] && passCtrl?.touched">Mínimo 8 caracteres</mat-error>
+        </mat-form-field>
 
-      <button mat-raised-button class="w-100 mb-2 btn-dark" (click)="login()">Iniciar Sesión</button>
+        <button mat-raised-button class="w-100 mb-2 btn-dark"
+                (click)="login()"
+                [disabled]="loginForm.invalid">Iniciar Sesión</button>
 
-      <button mat-stroked-button class="w-100 mb-2 btn-dark" (click)="registrar()"> Registrarse</button>
+        <button mat-stroked-button class="w-100 mb-2 btn-dark" (click)="registrar()">Registrarse</button>
+      </form>
     </mat-card>
   </div>
 </div>

@@ -31,19 +31,39 @@
 
     <!--Barra lateral derecha-->
     <div class="producto-compra">
-      <div class="estado" [ngClass]="{ disponible: producto.disponible, agotado: !producto.disponible }">
-        {{ producto.disponible ? 'Disponible' : 'No disponible' }}
+      <div class="estado" [ngClass]="{ disponible: (producto?.articulos || 0) > 0, agotado: (producto?.articulos || 0) <= 0 }">
+        {{ (producto?.articulos || 0) > 0 ? 'Disponible' : 'No disponible' }}
       </div>
 
 
       <!-- Botón editar -->
-      <button class="btn-agregar btn-warning w-100 mb-2" (click)="editarProducto()">
+      <!--<button class="btn-agregar btn-warning w-100 mb-2" (click)="editarLicor(producto)">
         <i class="fas fa-edit"></i> Editar producto
-      </button>
+      </button>-->
 
+      <!-- Control de stock: input y botones (debajo de Editar, en columna) -->
+      <div class="stock-control mb-2">
+        <div class="mb-2">
+          <label for="cantidadInput" class="form-label">Cantidad</label>
+          <input id="cantidadInput" type="number" min="1" [(ngModel)]="cantidadInput"
+                 class="form-control" style="width:120px; display:inline-block;" />
+        </div>
 
+        <!-- Botones en columna, uno debajo del otro -->
+        <div class="d-grid gap-2">
+          <button class="btn btn-success w-100" (click)="agregar()" [disabled]="procesando">
+            Agregar producto
+          </button>
+          <button class="btn btn-danger w-100" (click)="retirar()" [disabled]="procesando">
+            Retirar producto
+          </button>
+        </div>
+        <!-- NOTA: reutilizamos el DIV .estado existente arriba para mostrar 'No disponible' -->
+      </div>
 
       <app-eliminar-licor-modal [licorNombre]="producto.nombre"></app-eliminar-licor-modal>
     </div>
-  </div>
+
+
+
 </div>

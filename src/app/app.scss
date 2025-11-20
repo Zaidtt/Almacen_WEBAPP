@@ -1,1 +1,11 @@
+/* Reservar espacio para el navbar fijo */
+.app-container {
+  padding-top: 72px; /* debe coincidir con la altura del navbar */
+  box-sizing: border-box;
+}
+
+/* Si alguna pantalla usa .container directo, asegurar separación adicional */
+.container {
+  padding-top: 12px;
+}
 

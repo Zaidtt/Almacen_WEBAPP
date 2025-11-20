@@ -1,0 +1,35 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+  <div class="result-header d-flex align-items-center gap-3" *ngIf="q">
+    <i class="fas fa-search fa-2x" style="color:#7c1459"></i>
+    <div>
+      <div class="small-label">Resultado de</div>
+      <h2 class="search-title">{{ q }}</h2>
+    </div>
+  </div>
+
+  <div *ngIf="loading">Cargando...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div class="card-grid" *ngIf="!loading && licores.length > 0">
+    <mat-card class="producto-card" *ngFor="let l of licores">
+      <mat-card-header class="card-header">
+        <mat-card-title>{{ l.nombre }}</mat-card-title>
+        <mat-card-subtitle>{{ l.categoria }}</mat-card-subtitle>
+      </mat-card-header>
+      <div class="image-container">
+        <img [src]="l.imagen || 'assets/default-licor.jpg'" [alt]="l.nombre" />
+      </div>
+      <mat-card-actions class="card-footer">
+        <div class="boton-wrapper">
+          <button mat-raised-button class="boton-detalles" (click)="verProducto(l)">Detalles</button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div *ngIf="!loading && (!licores || licores.length === 0)">
+    <p>No se encontraron resultados para "{{ q }}".</p>
+  </div>
+</div>
